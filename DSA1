@@ -1,1 +1,8 @@
 I will the mistakes i have done while solving linked lists, array, string etc but basic only
+#reverse# dont return any value  if (reverse(ans.begin(),ans.end) == s) this is wrong
+Correct way
+reverse(ans.begin(), ans.end());
+
+if (ans == s) {
+    
+}
