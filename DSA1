@@ -6,3 +6,90 @@ reverse(ans.begin(), ans.end());
 if (ans == s) {
     
 }
+Range-Based for Loop — 
+
+A range-based for loop:
+
+for(int x : arr) {
+    cout << x;
+}
+
+works when arr is a range/iterable object whose beginning and ending can be determined.
+
+Example 1 — Normal array: WORKS
+int arr[] = {1, 2, 3, 4};
+
+for(int x : arr) {
+    cout << x;
+}
+
+Here C++ knows the array's size because arr is an actual array in this scope.
+
+Example 2 — Vector: WORKS
+vector<int> arr = {1, 2, 3, 4};
+
+for(int x : arr) {
+    cout << x;
+}
+
+vector knows its own range, so this works directly.
+
+Example 3 — Function parameter int arr[]: DOES NOT WORK
+void print(int arr[]) {
+    for(int x : arr) {   // ❌
+        cout << x;
+    }
+}
+
+Why?
+
+Inside a function parameter, this:
+
+int arr[]
+
+is treated as:
+
+int* arr
+
+The function receives only a pointer to the first element. It does not automatically know the array's size.
+
+So use:
+
+void print(int arr[], int n) {
+    for(int i = 0; i < n; i++) {
+        cout << arr[i];
+    }
+}
+IMPORTANT
+
+Don't remember:
+
+❌ “For-each requires a known array size.”
+
+Remember:
+
+✅ “Range-based for needs something iterable. A raw array works when its array information is still available, but an array passed to a function as int arr[] decays to a pointer, so I need the size separately.”
+
+Why did LeetCode sometimes let me use for-each?
+
+Because LeetCode often gives you:
+
+vector<int>& arr
+
+A vector knows its own size/range:
+
+for(int x : arr) {
+    ...
+}
+
+So there is no problem.
+
+The issue is not LeetCode vs GFG.
+
+The issue is the type of arr.
+
+When you want the **alphabet position** of a letter:
+
+* **Lowercase:** `a = 97`, so subtract **96** from the ASCII value → `a = 1, b = 2, ..., z = 26`.
+* **Uppercase:** `A = 65`, so subtract **64** from the ASCII value → `A = 1, B = 2, ..., Z = 26`.
+or can directly subtract 'a'or 'A' from the char
