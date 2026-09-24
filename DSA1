@@ -93,3 +93,45 @@ When you want the **alphabet position** of a letter:
 * **Lowercase:** `a = 97`, so subtract **96** from the ASCII value → `a = 1, b = 2, ..., z = 26`.
 * **Uppercase:** `A = 65`, so subtract **64** from the ASCII value → `A = 1, B = 2, ..., Z = 26`.
 or can directly subtract 'a'or 'A' from the char
+
+#unordered_map
+checking whether each element of an array exists in an unordered_map, use .find() or .count().
+mp.find(arr[i]) != mp.end()
+
+means:
+
+"Search for arr[i] in the map. If the returned iterator is not end(), the element exists."
+
+2. Using count()
+
+For checking existence, this is even simpler:
+
+for(int i = 0; i < 4; i++) {
+    if(mp.count(arr[i])) {
+        cout << arr[i] << " found\n";
+    }
+}
+
+count() returns:
+
+0 → key doesn't exist
+1 → key exists
+### count return true or false
+### find return the iterator
+
+If you want the VALUE associated with the array element
+
+Suppose:
+
+unordered_map<int, int> mp;
+
+Then:
+
+for(int i = 0; ; i++) {
+auto it = mp.find(key);
+
+if(it != mp.end()) {
+    it->first   // key
+    it->second  // value
+}
+}
