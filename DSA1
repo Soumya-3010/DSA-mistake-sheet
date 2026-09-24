@@ -94,7 +94,7 @@ When you want the **alphabet position** of a letter:
 * **Uppercase:** `A = 65`, so subtract **64** from the ASCII value → `A = 1, B = 2, ..., Z = 26`.
 or can directly subtract 'a'or 'A' from the char
 
-#unordered_map
+# unordered_map
 checking whether each element of an array exists in an unordered_map, use .find() or .count().
 mp.find(arr[i]) != mp.end()
 
