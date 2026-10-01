@@ -1,0 +1,46 @@
+## What complexity actually means
+
+Complexity isn't about seconds. It's about how the number of operations grows as the input grows.
+
+If your code does roughly f(n) basic operations, then:
+
+Doubling n in O(n) → work doubles
+Doubling n in O(n²) → work becomes 4×
+Increasing n 10× in O(n²) → work becomes 100×
+
+In 1 second it can do about 10⁸ operations
+≈ 10⁸ simple operations per second on a typical modern competitive-programming environment.
+So you can roughly estimate:
+Operations
+Approx. time
+10⁶ -> 0.01 sec
+10⁷ -> 0.1 sec
+10⁸ -> 1 sec
+10⁹ -> 10 sec
+
+Cheat sheet: constraint → feasible complexity
+Max n	Feasible complexity	Typical techniques
+≤ 10-11           ->   	O(n!) Brute-force permutations
+≤ 20-25           ->   	O(2ⁿ), O(2ⁿ · n)  Bitmask, subsets, backtracking
+≤ 40	          ->   	O(2^(n/2)) 	Meet in the middle
+≤ 100             ->   	O(n⁴)  Nested DP, Floyd-Warshall-ish
+≤ 500	          ->    O(n³)  Floyd-Warshall, matrix-style DP
+≤ 5,000	          ->    O(n²)  2D DP, all pairs
+≤ 10⁵ to 2×10⁵    ->   	O(n log n) Sorting, segment tree, binary search, heap
+≤ 10⁶	          ->	O(n) or O(n log n) (tight)	Linear scan, two pointers, prefix sums
+≤ 10⁸	          ->    O(n)  very light	Sieve, simple loop
+≤ 10¹⁸	          ->   	O(log n) or O(1) 	Binary search on answer, math, fast exponentiation
+
+How to use it: read the constraint, find the row, and that tells you what the intended solution looks like. Setters choose constraints deliberately to rule out slower approaches.
+
+ Reading constraints as hints
+
+Constraints are basically the problem telling you the answer's shape:
+
+n ≤ 20 → the solution is exponential (bitmask / brute force).
+n ≤ 5000 → the intended solution is O(n²), often a 2D DP.
+n ≤ 10⁵ or 2×10⁵ → O(n log n): think sorting, binary search, heaps, segment trees, or a clever O(n).
+n ≤ 10⁶ or more → strictly linear: single pass, hashing, prefix sums, sieve.
+n up to 10⁹ or 10¹⁸ → you can't even loop. Think math, formulas, binary search on the answer, or O(log n).
+Two constraints (e.g., n, m ≤ 1000) → complexity might be O(n·m) = 10⁶, which is fine.
+Multiple test cases → the limit usually applies to the sum of n across all tests. Check this carefully, because it changes what's feasible.
