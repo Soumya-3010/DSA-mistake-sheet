@@ -44,3 +44,36 @@ n ≤ 10⁶ or more → strictly linear: single pass, hashing, prefix sums, siev
 n up to 10⁹ or 10¹⁸ → you can't even loop. Think math, formulas, binary search on the answer, or O(log n).
 Two constraints (e.g., n, m ≤ 1000) → complexity might be O(n·m) = 10⁶, which is fine.
 Multiple test cases → the limit usually applies to the sum of n across all tests. Check this carefully, because it changes what's feasible.
+
+Counting Complexity
+Sequential blocks → add (keep the biggest)
+Nested loops → multiply
+Halving each step → log n
+for j = i; j ≤ n; j += i → n/i steps → total O(n log n) (harmonic series)
+for j = i..n inside for i = 1..n → n(n+1)/2 → O(n²)
+Recursion → (number of calls) × (work per call); 2 branches, depth n → O(2ⁿ)
+Common Operation Costs
+Sort → O(n log n)
+Hash map lookup → O(1) average
+Heap / set / map op → O(log n)
+list.remove() / insert at front → O(n)
+String concat in loop → O(n²)
+Binary search → O(log n)
+
+Fixes for Repeated Work
+Problem	Fix
+Repeated range sums	prefix sum
+Repeated searching	sort + binary search / hash map
+Checking pairs	two pointers / sliding window
+Overlapping subproblems	DP / memoization
+Repeated min/max/updates	heap, segment tree, Fenwick
+
+Space complexity intuition
+
+Same idea, but counting memory instead of operations. Typical limit is 256 MB.
+
+An int is 4 bytes, a long long is 8 bytes.
+256 MB ≈ 6 × 10⁷ ints (a rough ceiling; stay well below).
+A 1D array of 10⁶ ints = 4 MB → fine.
+A 2D array of 10⁴ × 10⁴ = 10⁸ ints = 400 MB → too much.
+A 2D array of 5000 × 5000 ints = 100 MB → okay, but tight with other arrays.
