@@ -801,3 +801,100 @@ Fast existence / counting, order irrelevant	unordered_set / unordered_map
 Pack data (value + index)	pair / tuple
 
 Huge boolean tables, subset-sum DP	bitset
+
+# Iterator 
+
+1. What it is
+
+An iterator is an object that points to one element inside a container.An iterator itself doesn’t “return” anything. It just points at an element. You get things out of it by using operators on it.
+
+Think of it as a generalized pointer: it tells you where an element is, and lets you move to the next one.
+
+Algorithms like sort, find, lower_bound use iterators to know which part of the container to work on.
+
+2. Why it exists
+
+Containers store data differently: vector is a block, list is linked nodes, set is a tree.
+
+You can’t write a[i] for all of them (list and set have no index).
+
+Iterators give one common way to walk through any container, so the same algorithm works on many containers.
+
+Basic operations
+
+vector<int> v = {10, 20, 30, 40};
+
+auto it = v.begin();
+
+cout << *it;     // 10   (* gives the value at that position)
+
+++it;            // move to next
+
+cout << *it;     // 20
+
+--it;            // move back
+
+cout << *(it+2); // 30   (jump, only for vector/deque/string/array)
+
+Syntax	Meaning
+
+*it	value at the position
+
+++it / --it	next / previous
+
+it + n, it - n	jump n steps (random-access only)
+
+it2 - it1	distance between two iterators
+
+it == end()	reached the end
+
+Iterator vs index
+cpp
+int idx = it - v.begin();      // iterator → index
+auto it2 = v.begin() + 3;      // index → iterator
+
+Example with lower_bound:
+
+cpp
+
+vector<int> v = {1, 3, 5, 7};
+
+auto it = lower_bound(v.begin(), v.end(), 5);
+
+cout << *it;                   // 5     (the value)
+
+cout << it - v.begin();        // 2     (the index)
+
+# STL Algorithms
+
+They never change container size. remove and unique only shuffle elements, so you must call erase afterward.
+
+1. Sorting family
+Function					What it does			Result on v	Time
+
+sort(b, e)					ascending				2 2 4 5 8 9	O(n log n)
+
+sort(b, e, greater<int>())	descending				9 8 5 4 2 2	O(n log n)
+
+sort(b, e, cmp)				custom order			depends on cmp	O(n log n)
+
+stable_sort(b, e, cmp)		equal elements keep original order		O(n log n)
+
+partial_sort(b, b+k, e)		smallest k, sorted, at the front	`2 2 4	rest unordered`
+
+nth_element(b, b+k, e)		puts the k-th smallest at index k; left side ≤, right side ≥	v[2] = 4	O(n)
+
+is_sorted(b, e)				check	0	O(n)
+
+2. Binary search family (sorted range only, O(log n))
+cpp
+vector<int> v = {1, 2, 2, 2, 5, 7};
+Function						Meaning	x = 2	x = 3
+
+lower_bound(b,e,x)				first element ≥ x	index 1	index 4 (value 5)
+
+upper_bound(b,e,x)				first element > x	index 4	index 4
+
+binary_search(b,e,x)			exists?	1	0
+
+
